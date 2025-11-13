@@ -34,4 +34,9 @@ public class Triangle {
     }
 
 
+    //Método para calcular el área
+    public double calcularArea() {
+        return (base * height) / 2;
+    }
+    
 }

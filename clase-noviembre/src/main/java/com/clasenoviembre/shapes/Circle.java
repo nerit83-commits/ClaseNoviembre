@@ -26,6 +26,11 @@ public class Circle {
     public void setRadius(double radius) {
         this.radius = radius;
     }
+
+    //Método para calcular el área
+    public double calcularArea() {
+        return Math.PI * Math.pow(radius, 2);
+    }
 }
 
 

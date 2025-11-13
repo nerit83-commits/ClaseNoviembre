@@ -32,4 +32,10 @@ public class Rectangle {
     public void setHeight(double height) {
         this.height = height;
     }
+
+    //Método para calcular el área
+    public double calcularArea() {
+        return width * height;
+    }
+    
 }

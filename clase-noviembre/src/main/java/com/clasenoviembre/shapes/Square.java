@@ -26,4 +26,9 @@ public class Square {
     public void setSide(double side) {
         this.side = side;
     }
+
+    //Método para calcular el área
+    public double calcularArea() {
+        return Math.pow(side, 2);
+    }
 }
