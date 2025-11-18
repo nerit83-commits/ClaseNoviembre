@@ -12,6 +12,10 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
     
 
 //Refactorizamos codigo utilizando anotaciones de ParametizeredTest
@@ -25,8 +29,10 @@ public class AppTest {
     private Circle cr;
     private Triangle tr;
 
- @ParameterizedTest
+   
+    @ParameterizedTest
     @ValueSource(doubles = {12.5 , 24.3 , 3.14 , 8.3})
+    @DisplayName ("Calculo del area del Square")
     void AreaSquareTest(double side) {
         Square sqr = new Square(side);
         double areasquare = sqr.calcularArea();
@@ -54,6 +60,7 @@ public class AppTest {
     }  
     */
 
+ 
     @ParameterizedTest
     @CsvSource({
     /*length , width*/
@@ -62,6 +69,7 @@ public class AppTest {
         "15  ,   7",
         "25   ,   2"
     })
+    @DisplayName ("Calculo del area del Rectangle verificando la construccion y el metodo")
     void AreaRectangleTest(double length, double width) {
         System.out.println(length + " " + width);
         Rectangle rect = new Rectangle(length, width );
@@ -80,6 +88,7 @@ public class AppTest {
     }  
     */
 
+    
     @ParameterizedTest
     @ValueSource(doubles = {6.4 , 10.5 , 13.1, 50.0})
         void AreaCircleTest(double radius) {
@@ -99,6 +108,7 @@ public class AppTest {
     }  
 */
 
+  
     @ParameterizedTest
     @CsvSource({
     /*base , height*/
@@ -160,6 +170,7 @@ public class AppTest {
     }
     */
 
+    
     @ParameterizedTest
     @CsvSource({
     /* radius, radiusSet */  //valores para el radio inicial y el radio modificado
@@ -169,6 +180,7 @@ public class AppTest {
         "18 , 10",
         "20 , 30"
     })
+    @DisplayName ("Seteo de Radius usando csvSource y assertTrue verificando la construccion de Circle y el metodo getRadius")
     void getSetRadiusTest(double radius, double radiusSet) {  //esto es la anotación de JUnit get y set del radio junto con su prueba
         Circle c1 = new Circle(radius);  // creo un objeto de la clase Circle
         c1.setRadius(radiusSet);  //establezco el nuevo valor del radio para cada iteración por eso uso CsvSource
@@ -186,6 +198,7 @@ public class AppTest {
     }
     */
 
+   
     @ParameterizedTest
     @CsvSource({  // metodo parametrizado para get y set de altura y ancho del rectangulo
     /* getheight , getwidth , setheight , setwidth */
@@ -195,7 +208,8 @@ public class AppTest {
             "45  ,   54   ,   5   ,   2   ",
             "53  ,   60   ,  90   ,  100  "
     })
-   void getSetRectTest(double getheight, double getwidth, double setheight, double setwidth) {  
+    @DisplayName ("Seteo de height y width usando csvSource y assertTrue verificando la construccion de Rectangle y el metodo get y set")
+    void getSetRectTest(double getheight, double getwidth, double setheight, double setwidth) {  
         Rectangle r1 = new Rectangle(getheight, getwidth);  // creo un objeto de la clase Rectangle
         r1.setHeight(setheight);  //establezco el nuevo valor de la altura
         r1.setWidth(setwidth); //establezco el nuevo valor del ancho
@@ -216,6 +230,7 @@ public class AppTest {
     }
     */
 
+    
     @ParameterizedTest
     @CsvSource({  // metodo parametrizado para get y set de base y altura del triangulo
         /* getbase , getheight , setbase , setheight */
