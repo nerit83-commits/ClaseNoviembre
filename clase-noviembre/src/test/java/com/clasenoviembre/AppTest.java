@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
     
@@ -29,7 +29,28 @@ public class AppTest {
     private Circle cr;
     private Triangle tr;
 
-   
+    @BeforeEach  // Este método se ejecuta antes de cada test y sirve para inicializar o reiniciar los objetos
+                 // para asegurarnos de que cada test empiece con un estado limpio.
+    void setUp() {
+        sqr = null;
+        rct = null;
+        cr = null;
+        tr = null;
+    }
+
+    @AfterEach  // Este método se ejecuta después de cada test y se usa para limpiar los datos, liberar memoria o
+                // evitar que queden valores viejos entre un test y otro.
+    void cleanUp() {
+        sqr = null;
+        rct = null; 
+        cr = null;
+        tr = null;
+
+        System.out.println("✔ Objetos limpiados después del test.");
+    }
+
+
+
     @ParameterizedTest
     @ValueSource(doubles = {12.5 , 24.3 , 3.14 , 8.3})
     @DisplayName ("Calculo del area del Square")
