@@ -1,6 +1,16 @@
 
-#Ignorar configuracion de vscode
+# VS Code settings
 .vscode/
-#Ignorar carpeta de compilacion de maven
-target/
 
+# Directorios de compilación
+/bin/
+/build/
+/target/
+
+# Archivos temporales
+*.class
+*.log
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
