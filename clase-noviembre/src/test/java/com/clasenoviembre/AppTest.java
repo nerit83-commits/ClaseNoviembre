@@ -25,26 +25,29 @@ import org.junit.jupiter.api.DisplayName;
 public class AppTest {
 
     private Square sqr;
-    private Rectangle rct;
-    private Circle cr;
-    private Triangle tr;
+    private Rectangle rect;
+    private Circle circ;
+    private Triangle trian;
 
     @BeforeEach  // Este método se ejecuta antes de cada test y sirve para inicializar o reiniciar los objetos
                  // para asegurarnos de que cada test empiece con un estado limpio.
     void setUp() {
         sqr = null;
-        rct = null;
-        cr = null;
-        tr = null;
+        rect = null;
+        circ = null;
+        trian = null;
+
+        System.out.println("Limpiando datos antes del test.");
     }
+
 
     @AfterEach  // Este método se ejecuta después de cada test y se usa para limpiar los datos, liberar memoria o
                 // evitar que queden valores viejos entre un test y otro.
     void cleanUp() {
         sqr = null;
-        rct = null; 
-        cr = null;
-        tr = null;
+        rect = null;
+        circ = null;
+        trian = null;
 
         System.out.println("✔ Objetos limpiados después del test.");
     }
@@ -55,7 +58,7 @@ public class AppTest {
     @ValueSource(doubles = {12.5 , 24.3 , 3.14 , 8.3})
     @DisplayName ("Calculo del area del Square")
     void AreaSquareTest(double side) {
-        Square sqr = new Square(side);
+        sqr = new Square(side);
         double areasquare = sqr.calcularArea();
 
         assertEquals(Math.pow(side, 2), areasquare );
@@ -93,7 +96,7 @@ public class AppTest {
     @DisplayName ("Calculo del area del Rectangle verificando la construccion y el metodo")
     void AreaRectangleTest(double length, double width) {
         System.out.println(length + " " + width);
-        Rectangle rect = new Rectangle(length, width );
+        rect = new Rectangle(length, width );
         double arearectangle = rect.calcularArea();
 
         assertEquals(length  * width   , arearectangle );
@@ -113,7 +116,7 @@ public class AppTest {
     @ParameterizedTest
     @ValueSource(doubles = {6.4 , 10.5 , 13.1, 50.0})
         void AreaCircleTest(double radius) {
-            Circle circ = new Circle(radius);
+            circ = new Circle(radius);
             double areacircle = circ.calcularArea();
     
             assertEquals(Math.PI * Math.pow(radius, 2), areacircle );  //verifico que el área calculada es correcta usando math.pi
@@ -139,7 +142,7 @@ public class AppTest {
         "18  ,   10"
     })
     void AreaTriangleTest(double base, double height) {  // nombre del método de prueba
-        Triangle trian = new Triangle(base, height); // creo un objeto de la clase Triangle con los datos base y height que estan en el CsvSource
+        trian = new Triangle(base, height); // creo un objeto de la clase Triangle con los datos base y height que estan en el CsvSource
         double areatriangle = trian.calcularArea();
 
         assertEquals((base * height) / 2, areatriangle );  //verifico que el área calculada es correcta
@@ -164,10 +167,10 @@ public class AppTest {
         "53  ,   60   ,  90   ,  100  ,  47   ,   1"
     })
     void AreaTotalTest(double triBase, double triHeight, double circleRadius, double rectLength, double rectWidth, double squareSide) {
-        Triangle trian = new Triangle(triBase, triHeight);
-        Circle circ = new Circle(circleRadius);
-        Rectangle rect = new Rectangle(rectLength, rectWidth);
-        Square sqr = new Square(squareSide);
+        trian = new Triangle(triBase, triHeight);
+        circ = new Circle(circleRadius);
+        rect = new Rectangle(rectLength, rectWidth);
+        sqr = new Square(squareSide);
         
 
         double totalArea = sqr.calcularArea() + rect.calcularArea() + circ.calcularArea() + trian.calcularArea();
@@ -203,10 +206,10 @@ public class AppTest {
     })
     @DisplayName ("Seteo de Radius usando csvSource y assertTrue verificando la construccion de Circle y el metodo getRadius")
     void getSetRadiusTest(double radius, double radiusSet) {  //esto es la anotación de JUnit get y set del radio junto con su prueba
-        Circle c1 = new Circle(radius);  // creo un objeto de la clase Circle
-        c1.setRadius(radiusSet);  //establezco el nuevo valor del radio para cada iteración por eso uso CsvSource
+        circ = new Circle(radius);  // creo un objeto de la clase Circle
+        circ.setRadius(radiusSet);  //establezco el nuevo valor del radio para cada iteración por eso uso CsvSource
 
-       assertEquals(radiusSet, c1.getRadius()); //verifico que el valor del radio es el esperado con el valor modificado
+       assertEquals(radiusSet, circ.getRadius()); //verifico que el valor del radio es el esperado con el valor modificado
     }
 
     /* 
@@ -231,11 +234,11 @@ public class AppTest {
     })
     @DisplayName ("Seteo de height y width usando csvSource y assertTrue verificando la construccion de Rectangle y el metodo get y set")
     void getSetRectTest(double getheight, double getwidth, double setheight, double setwidth) {  
-        Rectangle r1 = new Rectangle(getheight, getwidth);  // creo un objeto de la clase Rectangle
-        r1.setHeight(setheight);  //establezco el nuevo valor de la altura
-        r1.setWidth(setwidth); //establezco el nuevo valor del ancho
+        rect = new Rectangle(getheight, getwidth);  // creo un objeto de la clase Rectangle
+        rect.setHeight(setheight);  //establezco el nuevo valor de la altura
+        rect.setWidth(setwidth); //establezco el nuevo valor del ancho
 
-        assertTrue(r1.getHeight() == setheight && r1.getWidth() == setwidth); //verifico que los valores son los verdaderos para altura y ancho
+        assertTrue(rect.getHeight() == setheight && rect.getWidth() == setwidth); //verifico que los valores son los verdaderos para altura y ancho
                                                                             // == compara valores primitivos con true si son iguales
                                                                             // && combina dos condiciones booleanas como true solo si ambas son verdaderas
     }
@@ -262,11 +265,11 @@ public class AppTest {
             "53  ,   60   ,  90   ,  100  "
     })
     void getSetTriangule(double getbase, double getheight, double setbase, double setheight) {  
-          Triangle t1 = new Triangle(getbase, getheight);  // creo un objeto de la clase Triangle
-          t1.setBase(setbase);  //establezco el nuevo valor de la base
-          t1.setHeight(setheight); //establezco el nuevo valor de la altura
+          trian = new Triangle(getbase, getheight);  // creo un objeto de la clase Triangle
+          trian.setBase(setbase);  //establezco el nuevo valor de la base
+          trian.setHeight(setheight); //establezco el nuevo valor de la altura
     
-          assertTrue(t1.getBase() == setbase && t1.getHeight() == setheight); //verifico que los valores son los verdaderos para base y altura donde == compara valores primitivos con true si son iguales
+          assertTrue(trian.getBase() == setbase && trian.getHeight() == setheight); //verifico que los valores son los verdaderos para base y altura donde == compara valores primitivos con true si son iguales
                                                                               // && combina dos condiciones booleanas como true solo si ambas son verdaderas
      }
 
