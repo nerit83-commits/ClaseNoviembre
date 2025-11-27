@@ -16,11 +16,26 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.MethodOrderer.MethodName;  //orden alfabetico
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.MethodOrderer.Random;
+
     
 
 //Refactorizamos codigo utilizando anotaciones de ParametizeredTest
 /*CsvSource - ValueSource */
 
+//Refactorizamos por segunda vez utilizando anotaciones TestMethodOrder
+/*@TestMethodOrder*/
+
+@TestMethodOrder(OrderAnnotation.class)  //por orden de numeracion que definimos, 1,2,3,etc.
+//@TestMethodOrder(MethodName.class) //por orden alfabetico
+//@TestMethodOrder(org.junit.jupiter.api.MethodOrderer.DisplayName.class) //orden por nombre del Display
+//@TestMethodOrder(Random.class)  //orden aleatorio cada vez que se ejecuta
 
 public class AppTest {
 
@@ -53,10 +68,11 @@ public class AppTest {
     }
 
 
-
+    @Order(5)
+    @Tag("area")
     @ParameterizedTest
     @ValueSource(doubles = {12.5 , 24.3 , 3.14 , 8.3})
-    @DisplayName ("Calculo del area del Square")
+    @DisplayName ("Calculo de area de Square usando ValueSource y assertEquals verificando la construccion del Square y el metodo CalcularArea")
     void AreaSquareTest(double side) {
         sqr = new Square(side);
         double areasquare = sqr.calcularArea();
@@ -84,7 +100,8 @@ public class AppTest {
     }  
     */
 
- 
+    @Order(4)
+    @Tag("area")
     @ParameterizedTest
     @CsvSource({
     /*length , width*/
@@ -93,7 +110,7 @@ public class AppTest {
         "15  ,   7",
         "25   ,   2"
     })
-    @DisplayName ("Calculo del area del Rectangle verificando la construccion y el metodo")
+    @DisplayName ("Calculo del area del Rectangle verificando la construccion y el metodo usando CsvSource y assertEquals")
     void AreaRectangleTest(double length, double width) {
         System.out.println(length + " " + width);
         rect = new Rectangle(length, width );
@@ -112,9 +129,12 @@ public class AppTest {
     }  
     */
 
-    
+    @Order(3)
+    @Tag("area")
     @ParameterizedTest
     @ValueSource(doubles = {6.4 , 10.5 , 13.1, 50.0})
+    @DisplayName("Calculo de area de Circle usando ValueSource y assertEquals verificando\n" + //
+                "la construccion del Circle y el metodo calcularArea")
         void AreaCircleTest(double radius) {
             circ = new Circle(radius);
             double areacircle = circ.calcularArea();
@@ -132,7 +152,8 @@ public class AppTest {
     }  
 */
 
-  
+    @Order(1)
+    @Tag("area")
     @ParameterizedTest
     @CsvSource({
     /*base , height*/
@@ -141,6 +162,8 @@ public class AppTest {
         "6   ,   12",
         "18  ,   10"
     })
+    @DisplayName("Calculo de area de Triangle usando CsvSource y assertEquals verificando\n" + //
+                "la construccion del Triangle y el metodo CalcularArea")
     void AreaTriangleTest(double base, double height) {  // nombre del método de prueba
         trian = new Triangle(base, height); // creo un objeto de la clase Triangle con los datos base y height que estan en el CsvSource
         double areatriangle = trian.calcularArea();
@@ -158,6 +181,8 @@ public class AppTest {
     }  
     */
 
+    @Order(2)
+    @Tag("area")
     @ParameterizedTest  //parametrizamos el test de area total
     @CsvSource({  //triangle base, triangle height, circle radius, rectangle length, rectangle width, square side
         "2   ,   5   ,   10   ,   8   ,   4   ,   7",
@@ -166,6 +191,8 @@ public class AppTest {
         "45  ,   54   ,   5   ,   2   ,   7   ,  15",
         "53  ,   60   ,  90   ,  100  ,  47   ,   1"
     })
+    @DisplayName("Calculo del area Total usando CsvSource y assertEquals verificando\n" + //
+                "la construccion de cada figura y el metodo CalcularArea")
     void AreaTotalTest(double triBase, double triHeight, double circleRadius, double rectLength, double rectWidth, double squareSide) {
         trian = new Triangle(triBase, triHeight);
         circ = new Circle(circleRadius);
@@ -194,7 +221,8 @@ public class AppTest {
     }
     */
 
-    
+    @Order(8)
+    @Tag("integration")
     @ParameterizedTest
     @CsvSource({
     /* radius, radiusSet */  //valores para el radio inicial y el radio modificado
@@ -222,7 +250,8 @@ public class AppTest {
     }
     */
 
-   
+    @Order(6)
+    @Tag("integration")
     @ParameterizedTest
     @CsvSource({  // metodo parametrizado para get y set de altura y ancho del rectangulo
     /* getheight , getwidth , setheight , setwidth */
@@ -254,7 +283,8 @@ public class AppTest {
     }
     */
 
-    
+    @Order(7)
+    @Tag("integration")
     @ParameterizedTest
     @CsvSource({  // metodo parametrizado para get y set de base y altura del triangulo
         /* getbase , getheight , setbase , setheight */
@@ -264,6 +294,8 @@ public class AppTest {
             "45  ,   54   ,   5   ,   2   ",
             "53  ,   60   ,  90   ,  100  "
     })
+    @DisplayName("Seteo de base y height usando CsvSource y assertTrue verificando\n" + //
+                "la construccion del triangle y el metodo getBase y getHeight")
     void getSetTriangule(double getbase, double getheight, double setbase, double setheight) {  
           trian = new Triangle(getbase, getheight);  // creo un objeto de la clase Triangle
           trian.setBase(setbase);  //establezco el nuevo valor de la base
